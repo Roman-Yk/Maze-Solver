@@ -6,38 +6,38 @@ class Search:
         [self.rows, self.cols] = img.shape
         
         
-    def build(self):
+    def build(self, wall):
         self.graph = {}
-        not_wall = 150
+
         for row in range(len(self.image)):
             for column in range(len(self.image[row])):
-                if self.image[row][column] > not_wall: 
+                if self.image[row][column] !=wall: 
                     t = (row, column)
                     if t in self.graph.keys():
-                        if column-1 >= 0 and self.image[row][column-1] > not_wall:
+                        if column-1 >= 0 and self.image[row][column-1] !=wall:
                             self.graph[t].append((row, column-1))  
                             
-                        if column+1 < self.cols and self.image[row][column+1] > not_wall:
+                        if column+1 < self.cols and self.image[row][column+1] !=wall:
                             self.graph[t].append((row, column+1))  
                             
-                        if row-1 >= 0 and self.image[row-1][column] > not_wall:
+                        if row-1 >= 0 and self.image[row-1][column] !=wall:
                                 self.graph[t].append((row-1, column))  
                                 
-                        if row+1 < self.rows and self.image[row+1][column] > not_wall:
+                        if row+1 < self.rows and self.image[row+1][column] !=wall:
                                 self.graph[t].append((row+1, column))  
                                 
                     else:
                         self.graph[t] = []
-                        if column-1 >= 0 and self.image[row][column-1] > not_wall:
+                        if column-1 >= 0 and self.image[row][column-1] !=wall:
                             self.graph[t].append((row, column-1))  
                             
-                        if column+1 < self.cols and self.image[row][column+1] > not_wall:
+                        if column+1 < self.cols and self.image[row][column+1] !=wall:
                             self.graph[t].append((row, column+1))  
                             
-                        if row-1 >= 0 and self.image[row-1][column] > not_wall:
+                        if row-1 >= 0 and self.image[row-1][column] !=wall:
                                 self.graph[t].append((row-1, column))  
                                 
-                        if row+1 < self.rows and self.image[row+1][column] > not_wall:
+                        if row+1 < self.rows and self.image[row+1][column] !=wall:
                                 self.graph[t].append((row+1, column))  
 
                 

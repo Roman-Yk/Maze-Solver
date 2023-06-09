@@ -5,6 +5,7 @@ from dfs import Search
 
 DOTS = 0
 CALLED = False
+COLOR = -1
 START = []
 END = []
 
@@ -51,25 +52,31 @@ def draw_circle(event, x, y, flags, param):
     global DOTS
     global START
     global END
+    global COLOR
     
-    if event == cv2.EVENT_LBUTTONDOWN and DOTS < 2:
+    if event == cv2.EVENT_LBUTTONDOWN and DOTS < 2 and COLOR != -1:
         DOTS += 1
         if not START:
             START = [y,x]
         else:
             END = [y,x]
         cv2.circle(img, (x, y), 5, (0, 255, 0), -1)
+
+    if event == cv2.EVENT_RBUTTONDOWN and COLOR == -1:
+        COLOR = img[y][x]
+        print(COLOR)
           
 cv2.namedWindow(winname = "Maze Solver")
 cv2.setMouseCallback("Maze Solver", draw_circle)
 
 s = Search(img)
-s.build()
+
 
 while True:
     cv2.imshow("Maze Solver", img)
 
     if DOTS == 2 and not CALLED:
+        s.build(COLOR)
         img = s.has_path(tuple(START), tuple(END))
         CALLED = True
     
